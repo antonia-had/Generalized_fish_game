@@ -69,8 +69,8 @@ def fish_game(vars, # contains all C, R, W
         # Go through all timesteps for prey, predator, and harvest
         for t in range(tSteps):
             if x[t] > 0 and y[t] > 0:
-                x[t+1] = x[t] + b*x[t]*(1-x[t]/K) - (a*x[t]*y[t])/(np.power(y[t],m)+a*h*x[t]) - z[t]*x[t] - epsilon_prey[i] # Prey growth equation
-                y[t+1] = y[t] + c*a*x[t]*y[t]/(np.power(y[t],m)+a*h*x[t]) - d*y[t] - epsilon_predator[i] # Predator growth equation
+                x[t+1] = x[t] + b*x[t]*(1-x[t]/K) - (a*x[t]*y[t])/(np.power(y[t],m)+a*h*x[t]) - z[t]*x[t] - x[t]* epsilon_prey[i] # Prey growth equation
+                y[t+1] = y[t] + c*a*x[t]*y[t]/(np.power(y[t],m)+a*h*x[t]) - d*y[t] - y[t]* epsilon_predator[i] # Predator growth equation
                 if t <= tSteps-1:
                     if strategy == 'Previous_Prey':
                         input_ranges = [[0, K]] # Prey pop. range to use for normalization
