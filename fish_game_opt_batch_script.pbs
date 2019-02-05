@@ -1,0 +1,11 @@
+#PBS -l nodes=12:ppn=16
+#PBS -l walltime=24:00:00
+#PBS -j oe
+#PBS -o fish_game.out
+#PBS -e fish_game.err
+
+cd $PBS_O_WORKDIR
+source /etc/profile.d/modules.sh
+module load openmpi-1.6.5-intel-x86_64/gnu
+module load python-2.7.5
+mpirun python fish_game_opt_caller.py
