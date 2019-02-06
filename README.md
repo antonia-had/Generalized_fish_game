@@ -20,10 +20,13 @@ Stage 1 - Optimization
 
 * Visualize solutions on parallel axis plot by running parallel_coordinate.py 
 
-Stage 2 - Re-evaluation of solutions in other SOW
+Stage 2 - Re-evaluation of solutions in other SOWs
 
-* Generate Latin Hypercube Sample of deeply uncertain parameters by running sh sample_parameters.sh. To replicate the analysis with the same SOW as in the paper, skip this step and use the parameter_samples.txt file already found in this directory.
+* Generate Latin Hypercube Sample of deeply uncertain parameters by running sh sample_parameters.sh. To replicate the analysis with the same SOWs as in the paper, skip this step and use the parameter_samples.txt file already found in this directory.
 
 * Within the Generalized directory, create two directories: resim_objs and resim_cnstr
 
 * Re-simulate all identified solutions in all generated SOW by running qsub resimulate_fish_game.sh
+
+* The sampled SOWs that are used to demostrate dynamics in the paper are the following (with python indexing): 70, 212, 1280, and 3489. These will be different if you generated your own Latin Hypercube Sample, and need to be identified using the conditional equations mentioned in the paper
+
