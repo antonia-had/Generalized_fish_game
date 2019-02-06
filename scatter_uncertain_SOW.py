@@ -5,8 +5,9 @@ import pylab as p
 from mpl_toolkits.mplot3d import Axes3D
 pyplot.style.use('ggplot')
 
-
-nSamples=4000
+# Read in Latin hypercube samples of uncertain inputs
+LHsamples = np.loadtxt('./parameter_samples.txt')
+nSamples=len(LHsamples[:,0])
 nObjs=4
 nCnstr = 1
 numPts = (len(os.listdir('./Generalized/resim_objs'))) # Get number of solutions on pareto front
@@ -39,14 +40,7 @@ sigmaX = 0.004
 sigmaY = 0.004
 SOW_inputs = [a, b, c, d, h, K, m, sigmaX, sigmaY]
 
-objs_labels = ['Mean NPV', 
-               'Mean prey deficit', 
-               'Mean 1st percentile of consecutive low harvest', 
-               'Mean 1st percentile of each realization']
-
-# Read in Latin hypercube samples of uncertain inputs
-LHsamples = np.loadtxt('./parameter_samples.txt')
-# Calculate inequalities to use sort solutions into those that allow for some coexistence
+# Calculate inequalities to use sort solutions into those that allow for coexistence
 eq1 = LHsamples[:,3]*LHsamples[:,4]
 eq1 = eq1[:, np.newaxis] # Need to turn this from an 1 dimensional array to a 2x1
 eq2 = LHsamples[:,0]*np.power(LHsamples[:,4]*LHsamples[:,5],1-LHsamples[:,6])
@@ -72,6 +66,8 @@ sorted_diff = np.argsort(average_diff)
 # Stable and unstable SOW sorted by their distance to the default
 stable_sorted = [SOW for SOW in sorted_diff if SOW in stable]
 unstable_sorted = [SOW for SOW in sorted_diff if SOW in unstable]
+# Determine SOW distance from stability 
+det_ext = [LHsamples[k,10] - LHsamples[k,11] for k in range(np.shape(LHsamples)[0])]
 
 reference = np.loadtxt('./Generalized.reference',delimiter=' ')
 #reference_alternative1 = np.loadtxt('./Reoptimized_212.reference',delimiter=' ')
