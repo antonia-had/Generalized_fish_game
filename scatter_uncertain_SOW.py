@@ -4,6 +4,7 @@ from matplotlib import pyplot
 import pylab as p
 from mpl_toolkits.mplot3d import Axes3D
 pyplot.style.use('ggplot')
+pyplot.ioff()
 
 # Read in Latin hypercube samples of uncertain inputs
 LHsamples = np.loadtxt('./parameter_samples.txt')
@@ -83,7 +84,7 @@ objs, cnstr = reformatData('Previous_Prey', nSamples)
 objs[:,:,0] = -objs[:,:,0]
 objs[:,:,3] = -objs[:,:,3]
 
-fig = p.figure()
+fig = p.figure(figsize=(10,9))
 ax3D = Axes3D(fig)
 cmap = pyplot.cm.get_cmap("tab20")
 pts1 = ax3D.scatter(reference[:,0], reference[:,1], reference[:,3],
@@ -92,18 +93,18 @@ pts2 = ax3D.scatter(objs[:,stable_sorted[4],0], objs[:,stable_sorted[4],1], objs
                     c=cmap(0.15),cmap=cmap, linewidth=0)
 pts3 = ax3D.scatter(objs[:,stable_sorted[-1],0], objs[:,stable_sorted[-1],1], objs[:,stable_sorted[-1],3],
                     c=cmap(0.25),cmap=cmap, linewidth=0)
-pts4 = ax3D.scatter(objs[:,unstable_sorted[-1],0], objs[:,unstable_sorted[-1],1], objs[:,unstable_sorted[-1],3],
-                    c=cmap(0.5),cmap=cmap, linewidth=0)
-pts5 = ax3D.scatter(objs[:,unstable_sorted[0],0], objs[:,unstable_sorted[0],1], objs[:,unstable_sorted[0],3],
+pts4 = ax3D.scatter(objs[:,unstable_sorted[0],0], objs[:,unstable_sorted[0],1], objs[:,unstable_sorted[0],3],
                     c=cmap(0.35),cmap=cmap, linewidth=0)
-pt_ideal = ax3D.scatter(12100, 0.0, 550, c='black', s=500, linewidth=0, marker='*')
+pts5 = ax3D.scatter(objs[:,unstable_sorted[-1],0], objs[:,unstable_sorted[-1],1], objs[:,unstable_sorted[-1],3],
+                    c=cmap(0.5),cmap=cmap, linewidth=0)
+pt_ideal = ax3D.scatter(12100, 0.0, 750, c='black', s=500, linewidth=0, marker='*')
 
 ax3D.set_xlim(0,12000)
 ax3D.set_xticks((np.arange(0,12005,4000)))
 ax3D.set_ylim(0,1)
 ax3D.set_yticks((np.arange(0,1.05,0.25)))
-ax3D.set_zlim(0,510)
-ax3D.set_zticks((np.arange(0,510,100)))
+ax3D.set_zlim(0,710)
+ax3D.set_zticks((np.arange(0,710,100)))
 ax3D.set_facecolor('white')
 # make the panes transparent
 ax3D.xaxis.set_pane_color((1.0, 1.0, 1.0, 0.0))
@@ -118,5 +119,4 @@ ax3D.set_ylabel("\nPrey population deficit")
 ax3D.set_zlabel("\nWorst harvest instance")
 
 ax3D.view_init(10, -170)
-    
-p.show()
+p.savefig('Objectives_uncertain_SOW_scatter.png')
