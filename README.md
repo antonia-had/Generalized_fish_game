@@ -32,5 +32,5 @@ Stage 2 - Re-evaluation of solutions in other SOWs
 
 * To assess how the re-evaluated solutions compare to those that would have been obtained had we known the SOW we were in (i.e. the "regret"), we need to perform the optimization again, inputing the equivalent SOW parameters each time. This needs to be repeated three times, each time editing re_optimize_fish_game.py to call the equivalent SOW: 2343, 3712, and 3888. Reoptimization in 803 (or any SOW with deterministic extinction is pointless as the system collapses anyway). We also need to create copies of the same directory architecture as in our original optimization, in the form of, e.g., "Reoptimized/SOW/objs" etc. After editing the python script and creating all necessary directories, run "qsub fish_game_reoptimize_batch_script.pbs" and repeat three times (for each SOW). To visualize these against the re-evaluated solutions, run scatter_uncertain_SOW_regret.py.
 
-
+* To visualize the regrets on a parallel axis plot, run parallel_coordinate_multiple_SOW.py.
 
