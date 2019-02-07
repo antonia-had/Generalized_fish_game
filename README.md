@@ -36,3 +36,8 @@ Stage 2 - Re-evaluation of solutions in other SOWs
 
 * To visualize how species collapse occurs with parametric changes run parametric_space_collapse.py. 
 
+Stage 3 - Robustness analysis
+
+* For the robustness analysis, each solution needs to be assessed on whether or not it meets the performance criteria in each of the sampled SOWs. The percent of SOWs where each and all criteria are met is then calculated. SOWs where extinction is deterministic are left out of this calculation. File calcRobustness.py performs this analysis.
+
+* To visualize the robustness of each solution in a parallel axis plot, run robustness_parallel_coordinate.py. This script will also highlight two policies, the policy most robust in meeting the NPV performance criterion and the policy most robust in meeting all performance criteria. 
