@@ -9,5 +9,5 @@ cut -d ' ' -f 7-10 Reoptimized_2343.resultfile >Reoptimized_2343.reference
 python pareto.py ./Reoptimized/312/sets/*.set -o 6-9 -e 5 0.005 1 1   --output Reoptimized_312.resultfile --delimiter=" " --comment="#"
 cut -d ' ' -f 7-10 Reoptimized_312.resultfile >Reoptimized_312.reference
 
-python pareto.py ./Reoptimized/803/sets/*.set -o 6-9 -e 5 0.005 1 1   --output Reoptimized_803.resultfile --delimiter=" " --comment="#"
-cut -d ' ' -f 7-10 Reoptimized_803.resultfile >Reoptimized_803.reference
+python pareto.py ./Reoptimized/3888/sets/*.set -o 6-9 -e 5 0.005 1 1   --output Reoptimized_3888.resultfile --delimiter=" " --comment="#"
+cut -d ' ' -f 7-10 Reoptimized_3888.resultfile >Reoptimized_3888.reference
