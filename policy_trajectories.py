@@ -1,8 +1,6 @@
-import os
 import numpy as np
 import itertools
 import matplotlib.pyplot as plt
-#import matplotlib.animation as animation
 from cycler import cycler
 plt.style.use('ggplot')
 
@@ -23,7 +21,6 @@ sigmaX = 0.004
 sigmaY = 0.004
 
 defaultSOW = [a, b, c, d, h, K, m, sigmaX, sigmaY]
-numPts = (len(os.listdir('./Generalized/resim_cnstr'))) 
 tSteps = 100 # no. of timesteps to run the fish game on
 strategy = 'Previous_Prey'
 results = np.loadtxt("./Generalized.resultfile")
@@ -55,10 +52,10 @@ def fish_game(vars, # contains all C, R, W
     harvest = np.zeros(tSteps+1)
     NPVharvest = np.zeros(tSteps+1)
     # Create array with environmental stochasticity for prey
-    epsilon_prey = np.random.lognormal(0.0, sigmaX, 1)
+    epsilon_prey = np.random.normal(0.0, sigmaX, 1)
     
     # Create array with environmental stochasticity for predator
-    epsilon_predator = np.random.lognormal(0.0, sigmaY, 1)
+    epsilon_predator = np.random.normal(0.0, sigmaY, 1)
 
     # Initialize populations and values
     x[0] = additional_inputs[0]
@@ -73,8 +70,8 @@ def fish_game(vars, # contains all C, R, W
     # Go through all timesteps for prey, predator, and harvest
     for t in range(tSteps):
         if x[t] > 0 and y[t] > 0:
-            x[t+1] = x[t] + b*x[t]*(1-x[t]/K) - (a*x[t]*y[t])/(np.power(y[t],m)+a*h*x[t]) - z[t]*x[t] - epsilon_prey # Prey growth equation
-            y[t+1] = y[t] + c*a*x[t]*y[t]/(np.power(y[t],m)+a*h*x[t]) - d*y[t] - epsilon_predator # Predator growth equation
+            x[t+1] = (x[t] + b*x[t]*(1-x[t]/K) - (a*x[t]*y[t])/(np.power(y[t],m)+a*h*x[t]) - z[t]*x[t])* np.exp(epsilon_prey) # Prey growth equation
+            y[t+1] = (y[t] + c*a*x[t]*y[t]/(np.power(y[t],m)+a*h*x[t]) - d*y[t]) *np.exp(epsilon_predator) # Predator growth equation
             if t <= tSteps-1:
                 z[t+1] = hrvSTR([x[t]], vars, input_ranges, output_ranges)
                 harvest[t+1] = z[t+1]*x[t+1]
@@ -142,12 +139,14 @@ cmap = plt.cm.get_cmap("plasma")
 highprofitpolicy = results[NPV_robust,0:6]
 mostrobustpolicy = results[all_robust,0:6]
 ntraj = 5 # Number of trajectories to plot
-worlds = [defaultSOW, LHsamples[2343,0:9].tolist(), LHsamples[3888,0:9].tolist()]
+worlds = [defaultSOW, LHsamples[1540,0:9].tolist(), LHsamples[1253,0:9].tolist()]
+
 # Different SOW have different possible trajectories
 x = np.zeros([len(worlds), ntraj])
 y = np.zeros([len(worlds), ntraj])
-eq_x = [1900, 2200, 730]
-eq_y = [250, 75, 210]
+# When unharvested, different SOWs have different "natural populations" which need to be determined
+eq_x = [1900, 1000, 1200]
+eq_y = [250, 600, 500]
 for i in range(len(worlds)):
     x[i] = np.linspace(eq_x[i]*0.9, eq_x[i]*1.1, ntraj)
     y[i] = np.linspace(eq_y[i]*0.9, eq_y[i]*1.1, ntraj)
@@ -215,13 +214,13 @@ for k in range(nrows):
 #        ax.set_xlim(0,2500)
         if l==0:
             ax.set_ylabel("Predator")        
-        if l==2:       
-            ax.legend([endpoint1, endpoint2, pop_thres],['Most robust in NPV equilibrium point','Most robust in all criteria equilibrium point','Population threshold'], loc = 'lower right')
+#        if l==2:       
+#            ax.legend([endpoint1, endpoint2, pop_thres],['Most robust in NPV equilibrium point','Most robust in all criteria equilibrium point','Population threshold'], loc = 'lower right')
 sm = plt.cm.ScalarMappable(cmap=cmap)
 sm.set_array([0.0,1.0])
 fig.subplots_adjust(bottom = 0.2)
 cbar_ax = fig.add_axes([0.1, 0.06, 0.8, 0.06])
 cb = fig.colorbar(sm, cax=cbar_ax, orientation="horizontal")
 cb.ax.set_xlabel("Ratio of prey harvested")
-
+plt.show()
 
