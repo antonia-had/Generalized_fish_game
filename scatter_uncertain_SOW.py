@@ -4,7 +4,7 @@ from matplotlib import pyplot
 import pylab as p
 from mpl_toolkits.mplot3d import Axes3D
 pyplot.style.use('ggplot')
-pyplot.ioff()
+#pyplot.ioff()
 
 # Read in Latin hypercube samples of uncertain inputs
 LHsamples = np.loadtxt('./parameter_samples.txt')
@@ -89,7 +89,7 @@ ax3D = Axes3D(fig)
 cmap = pyplot.cm.get_cmap("tab20")
 pts1 = ax3D.scatter(reference[:,0], reference[:,1], reference[:,3],
                     c=cmap(0.0),cmap=cmap, linewidth=0)
-pts2 = ax3D.scatter(objs[:,stable_sorted[4],0], objs[:,stable_sorted[4],1], objs[:,stable_sorted[4],3],
+pts2 = ax3D.scatter(objs[:,stable_sorted[0],0], objs[:,stable_sorted[0],1], objs[:,stable_sorted[0],3],
                     c=cmap(0.15),cmap=cmap, linewidth=0)
 pts3 = ax3D.scatter(objs[:,stable_sorted[-1],0], objs[:,stable_sorted[-1],1], objs[:,stable_sorted[-1],3],
                     c=cmap(0.25),cmap=cmap, linewidth=0)
@@ -119,4 +119,4 @@ ax3D.set_ylabel("\nPrey population deficit")
 ax3D.set_zlabel("\nWorst harvest instance")
 
 ax3D.view_init(10, -170)
-p.savefig('Objectives_uncertain_SOW_scatter.png')
+p.show()#savefig('Objectives_uncertain_SOW_scatter.png')

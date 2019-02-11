@@ -139,14 +139,14 @@ cmap = plt.cm.get_cmap("plasma")
 highprofitpolicy = results[NPV_robust,0:6]
 mostrobustpolicy = results[all_robust,0:6]
 ntraj = 5 # Number of trajectories to plot
-worlds = [defaultSOW, LHsamples[1540,0:9].tolist(), LHsamples[1253,0:9].tolist()]
+worlds = [defaultSOW, LHsamples[1540,0:9].tolist(), LHsamples[2716,0:9].tolist()]
 
 # Different SOW have different possible trajectories
 x = np.zeros([len(worlds), ntraj])
 y = np.zeros([len(worlds), ntraj])
 # When unharvested, different SOWs have different "natural populations" which need to be determined
-eq_x = [1900, 1000, 1200]
-eq_y = [250, 600, 500]
+eq_x = [1900, 1100, 1500]
+eq_y = [250, 1300, 120]
 for i in range(len(worlds)):
     x[i] = np.linspace(eq_x[i]*0.9, eq_x[i]*1.1, ntraj)
     y[i] = np.linspace(eq_y[i]*0.9, eq_y[i]*1.1, ntraj)
