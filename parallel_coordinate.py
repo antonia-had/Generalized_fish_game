@@ -1,6 +1,5 @@
 import matplotlib
 from matplotlib import pyplot as plt
-from matplotlib import patheffects as pe
 import numpy as np
 plt.style.use('ggplot')
 plt.ioff()
