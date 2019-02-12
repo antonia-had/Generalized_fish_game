@@ -72,11 +72,11 @@ if m>0:
     x = np.linspace(0, xmax, nb_points)
     y = np.linspace(0, ymax, nb_points)
     
-    X1 , Y1  = np.meshgrid(x,y)                       # create a grid
+    X1 , Y1  = np.meshgrid(x,y)                    # create a grid
     DX1, DY1 = fish([X1, Y1])                      # compute growth rate on the grid
-    M = (np.hypot(DX1, DY1))                           # Norm of the growth rate 
-    M[ M == 0] = 1.                                 # Avoid zero division errors 
-    DX1 /= M                                        # Normalize each arrow
+    M = (np.hypot(DX1, DY1))                       # Norm of the growth rate 
+    M[ M == 0] = 1.                                # Avoid zero division errors 
+    DX1 /= M                                       # Normalize each arrow
     DY1 /= M
     
     def isoclines(y):
