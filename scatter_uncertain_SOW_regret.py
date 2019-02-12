@@ -74,9 +74,9 @@ sorted_det = np.argsort(det_ext)
 unstable_sorted = [SOW for SOW in sorted_det if SOW in unstable]
 
 reference = np.loadtxt('./Generalized.reference',delimiter=' ')
-reference_alternative1 = np.loadtxt('./Reoptimized_2343.reference',delimiter=' ')
-reference_alternative2 = np.loadtxt('./Reoptimized_3712.reference',delimiter=' ')
-reference_alternative3 = np.loadtxt('./Reoptimized_3888.reference',delimiter=' ')
+reference_alternative1 = np.loadtxt('./Reoptimized_1540.reference',delimiter=' ')
+reference_alternative2 = np.loadtxt('./Reoptimized_2832.reference',delimiter=' ')
+reference_alternative3 = np.loadtxt('./Reoptimized_1253.reference',delimiter=' ')
 reference[:,0] = -reference[:,0]
 reference[:,3] = -reference[:,3]
 reference_alternative1[:,0] = -reference_alternative1[:,0]
