@@ -38,10 +38,10 @@ def reformatData(method, SOW):
     return objs, cnstr
 
 reference = np.loadtxt('./Generalized.reference',delimiter=' ')
-optimized_alternative1 = np.loadtxt('./Reoptimized_2343.reference',delimiter=' ')
-optimized_alternative2 = np.loadtxt('./Reoptimized_3712.reference',delimiter=' ')
-optimized_alternative3 = np.loadtxt('./Reoptimized_3888.reference',delimiter=' ')
-objs, cnstr = reformatData('Previous_Prey', [2343, 3712, 3888])
+optimized_alternative1 = np.loadtxt('./Reoptimized_1540.reference',delimiter=' ')
+optimized_alternative2 = np.loadtxt('./Reoptimized_2832.reference',delimiter=' ')
+optimized_alternative3 = np.loadtxt('./Reoptimized_1253.reference',delimiter=' ')
+objs, cnstr = reformatData('Previous_Prey', [1540, 2832, 1253])
 
 reference = -reference
 optimized_alternative1 = -optimized_alternative1
