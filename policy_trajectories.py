@@ -169,7 +169,7 @@ for j in range(len(highprofitharv[:,:,:])): # Loop through SOW
         noharv[j,i,:], noharvOBJ[j,i] = fish_game([0.0]*6,additional_inputs)
 
 nb_points   = 50
-y_iso = np.linspace(0, 300, nb_points)
+y_iso = [np.linspace(0, 300, nb_points), np.linspace(0, 1500, nb_points), np.linspace(0, 200, nb_points)]
 
 def isoclines(y, SOW):
     a = float(SOW[0])
@@ -181,39 +181,39 @@ def isoclines(y, SOW):
     m = float(SOW[6])
     return ([(y**m*d)/(a*(c-h*d)),
              K*b/(2*b)-y**m/(2*a*h)+K*np.sqrt((a*h*b+y**m*b/K)**2-4*a**2*h*b*y/K)/(2*a*h*b)])
+    
 iso1= np.zeros([len(worlds), nb_points])
 iso2= np.zeros([len(worlds), nb_points])
+
 for j in range(len(worlds)):
-    iso1[j], iso2[j] = isoclines(y_iso, worlds[j])
+    iso1[j], iso2[j] = isoclines(y_iso[j], worlds[j])
 
 ncols = 3
-nrows = 1
 
 fig = plt.figure()
-for k in range(nrows):
-    for l in range(ncols):
-        ax = fig.add_subplot(nrows,ncols,ncols*k+l+1)
-        ax.plot(iso1[l],y_iso, c='gray')
-        ax.plot(iso2[l],y_iso, c='gray')
-        for n in range(len(highprofitharv[0,:,:])): # Loop through initial conditions
-            ax.set_prop_cycle(cycler('color', [cmap(1.*highprofitharv[ncols*k+l,n,2][i]) for i in range(tSteps)]))
-            for i in range(tSteps):
-                line1 = ax.plot(highprofitharv[ncols*k+l,n,0][i:i+2], highprofitharv[ncols*k+l,n,1][i:i+2], linewidth=2, linestyle='--',label='Most robust in NPV')
-            ax.set_prop_cycle(cycler('color', [cmap(1.*robustharv[ncols*k+l,n,2][i]) for i in range(tSteps)]))
-            for i in range(tSteps):
-                line2 = ax.plot(robustharv[ncols*k+l,n,0][i:i+2], robustharv[ncols*k+l,n,1][i:i+2], linewidth=2, linestyle='-',label='Most robust in all criteria')
+for l in range(ncols):
+    ax = fig.add_subplot(1,ncols,l+1)
+    ax.plot(iso1[l],y_iso[l], c='gray')
+    ax.plot(iso2[l],y_iso[l], c='gray')
+    for n in range(len(highprofitharv[0,:,:])): # Loop through initial conditions
+        ax.set_prop_cycle(cycler('color', [cmap(1.*highprofitharv[l,n,2][i]) for i in range(tSteps)]))
+        for i in range(tSteps):
+            line1 = ax.plot(highprofitharv[l,n,0][i:i+2], highprofitharv[l,n,1][i:i+2], linewidth=2, linestyle='--',label='Most robust in NPV')
+        ax.set_prop_cycle(cycler('color', [cmap(1.*robustharv[l,n,2][i]) for i in range(tSteps)]))
+        for i in range(tSteps):
+            line2 = ax.plot(robustharv[l,n,0][i:i+2], robustharv[l,n,1][i:i+2], linewidth=2, linestyle='-',label='Most robust in all criteria')
 #            ax.set_prop_cycle(cycler('color', [cmap(1.*noharv[ncols*k+l,n,2][i]) for i in range(tSteps)]))
 #            for i in range(tSteps):
 #                line3 = ax.plot(noharv[ncols*k+l,n,0][i:i+2], noharv[ncols*k+l,n,1][i:i+2], linewidth=2, linestyle='-',label='No harvest')
-            endpoint1 = ax.scatter(highprofitharv[ncols*k+l,n,0][100], highprofitharv[ncols*k+l,n,1][100], c='darkgoldenrod', s=20)
-            endpoint2 = ax.scatter(robustharv[ncols*k+l,n,0][100], robustharv[ncols*k+l,n,1][100], c='gold', s=20)
+        endpoint1 = ax.scatter(highprofitharv[l,n,0][100], highprofitharv[l,n,1][100], c='darkgoldenrod', s=20)
+        endpoint2 = ax.scatter(robustharv[l,n,0][100], robustharv[l,n,1][100], c='gold', s=20)
 #            endpoint3 = ax.scatter(noharv[ncols*k+l,n,0][100], noharv[ncols*k+l,n,1][100], c='black', s=20)
-            pop_thres = ax.axvline(x=worlds[l][5]*0.2, linestyle=':', c='crimson')
-        ax.set_xlabel("Prey")
+        pop_thres = ax.axvline(x=worlds[l][5]*0.2, linestyle=':', c='crimson')
+    ax.set_xlabel("Prey")
 #        ax.set_ylim(0,305)
 #        ax.set_xlim(0,2500)
-        if l==0:
-            ax.set_ylabel("Predator")        
+    if l==0:
+        ax.set_ylabel("Predator")        
 #        if l==2:       
 #            ax.legend([endpoint1, endpoint2, pop_thres],['Most robust in NPV equilibrium point','Most robust in all criteria equilibrium point','Population threshold'], loc = 'lower right')
 sm = plt.cm.ScalarMappable(cmap=cmap)

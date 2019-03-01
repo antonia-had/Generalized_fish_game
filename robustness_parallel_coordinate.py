@@ -4,7 +4,7 @@ from matplotlib import patheffects as pe
 import numpy as np
 plt.style.use('ggplot')
 
-fig = plt.figure() # create the figure
+fig = plt.figure(figsize=(18,9)) # create the figure
 ax = fig.add_subplot(1, 1 , 1)    
 
 robustness = np.loadtxt('./Robustness.txt',delimiter=' ')*100
@@ -42,7 +42,7 @@ ax.set_yticks(np.arange(0,110,20))
 ax.set_xticks([0,1,2,3,4])
 ax.set_xticklabels(objs_labels)
 ax.legend()
-plt.show()
+plt.savefig('robustness_parallel_coordinate.png')
 
 
 

@@ -17,13 +17,15 @@ h = 0.1
 K = 2000
 m = 0.7
 
-#a = LHsamples[70,0]
-#b = LHsamples[70,1]
-#c = LHsamples[70,2]
-#d = LHsamples[70,3]
-#h = LHsamples[70,4]
-#K = LHsamples[70,5]
-#m = LHsamples[70,6]
+sample = 1253
+
+a = LHsamples[sample,0]
+b = LHsamples[sample,1]
+c = LHsamples[sample,2]
+d = LHsamples[sample,3]
+h = LHsamples[sample,4]
+K = LHsamples[sample,5]
+m = LHsamples[sample,6]
 
 np.seterr(divide='ignore', invalid='ignore') # This is to ignore RuntimeWarning: invalid value encountered in true_divide (When both populations die)
 
@@ -60,7 +62,7 @@ if m>0:
     
     # plot trajectories
     for v, col in zip(values, vcolors):
-        P0 = [E*v for E in [1600,40]]             # starting point for each directory                            
+        P0 = [E*v for E in [800,500]]             # starting point for each directory                            
         P = integrate.odeint(fish, P0, t)         # we don't need infodict here
         p.plot( P[:,0], P[:,1], lw=1.5, color=col, label='P0=(%.f, %.f)' % ( P0[0], P0[1]) )
     

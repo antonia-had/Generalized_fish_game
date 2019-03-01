@@ -131,7 +131,7 @@ cbar2 = fig.colorbar(sm2)
 #Third SOW
 ax3 = fig.add_subplot(3, 1, 3)    # make axes to plot on   
 for i in range(len(norm_objs[2,:,:])):
-    ys = np.append(norm_objs[2,i,:],norm_cnstr2[i])
+    ys = np.append(norm_objs[2,i,:],norm_cnstr3[i])
     xs = range(len(ys))
     ax3.plot(xs, ys, c='grey', linewidth=2) 
     
