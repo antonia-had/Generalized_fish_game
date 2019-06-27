@@ -18,7 +18,7 @@ def optimize_fish_game():
     nRBF = 2 # no. of RBFs to use
     nIn = 1 # no. of inputs (depending on selected strategy)
     nVars = nIn*nRBF*3 # no. of variables to be optimized. ( no. of inputs * no. of RBFs * [center, radius, weight])
-    nObjs = 4 # no. of objectives to optimize for
+    nObjs = 5 # no. of objectives to optimize for
     nCnstr = 1 # no. of constraints
     
     # Set optimization settings
