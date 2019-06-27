@@ -45,8 +45,10 @@ cbar = fig.colorbar(sm)
 cbar.ax.set_ylabel("\nNet present value (NPV)")
 
 # Tick values
-minvalues = ["{0:.3f}".format(mins[0]), "{0:.3f}".format(-mins[1]),str(-mins[2]), str(mins[3]), str(mins[4]), str(0)]
-maxvalues = ["{0:.2f}".format(maxs[0]), "{0:.3f}".format(-maxs[1]),str(-maxs[2]), "{0:.2f}".format(maxs[3]), "{0:.2f}".format(maxs[4]),str(0) ]
+minvalues = ["{0:.3f}".format(mins[0]), "{0:.3f}".format(-mins[1]), 
+             str(-mins[2]), str(mins[3]), str(-mins[4]), str(0)]
+maxvalues = ["{0:.2f}".format(maxs[0]), "{0:.3f}".format(-maxs[1]), 
+             str(-maxs[2]), "{0:.2f}".format(maxs[3]), "{0:.2f}".format(-maxs[4]), str(0) ]
 
 ax.set_ylabel("Preference ->", size= 12)
 ax.set_yticks([])
