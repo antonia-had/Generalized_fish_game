@@ -3,6 +3,7 @@ from matplotlib import pyplot as plt
 import numpy as np
 import os
 plt.style.use('ggplot')
+plt.switch_backend('agg')
 plt.ioff()
 
 objs_labels = ['Net present\nvalue (NPV)', 

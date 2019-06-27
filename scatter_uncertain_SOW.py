@@ -4,7 +4,8 @@ from matplotlib import pyplot
 import pylab as p
 from mpl_toolkits.mplot3d import Axes3D
 pyplot.style.use('ggplot')
-#pyplot.ioff()
+pyplot.switch_backend('agg')
+pyplot.ioff()
 
 # Read in Latin hypercube samples of uncertain inputs
 LHsamples = np.loadtxt('./parameter_samples.txt')

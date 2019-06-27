@@ -5,6 +5,9 @@ import pylab as p
 from matplotlib import pyplot as plt
 from scipy import integrate
 plt.style.use('ggplot')
+plt.switch_backend('agg')
+plt.ioff()
+
 
 LHsamples = np.loadtxt('./parameter_samples.txt')
 

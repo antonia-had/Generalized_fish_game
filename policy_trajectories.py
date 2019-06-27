@@ -3,6 +3,8 @@ import itertools
 import matplotlib.pyplot as plt
 from cycler import cycler
 plt.style.use('ggplot')
+plt.switch_backend('agg')
+plt.ioff()
 
 nRBF = 2 # no. of RBFs to use
 nIn = 1 # no. of inputs (depending on selected strategy)
