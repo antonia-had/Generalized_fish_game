@@ -2,6 +2,7 @@ import matplotlib
 from matplotlib import pyplot as plt
 import numpy as np
 plt.style.use('ggplot')
+plt.switch_backend('agg')
 plt.ioff()
 
 fig = plt.figure(figsize=(18,9)) # create the figure
