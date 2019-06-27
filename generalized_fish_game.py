@@ -47,7 +47,8 @@ def fish_game(vars, # contains all C, R, W
     # Create array to store metrics per realization
     NPV = np.zeros(N)
     cons_low_harv = np.zeros(N)
-    harv_1st_pc = np.zeros(N)    
+    harv_1st_pc = np.zeros(N)
+    variance = np.zeros(N)    
     
     # Create arrays to store objectives and constraints
     objs = [0.0]*nObjs
@@ -89,13 +90,15 @@ def fish_game(vars, # contains all C, R, W
         else:
             cons_low_harv[i] = 0
         harv_1st_pc[i] = np.percentile(harvest[i,:],1)
-
+        variance[i] = np.var(harvest[i,:])
+        
     # Calculate objectives across N realizations
     objs[0] = -np.mean(NPV) # Mean NPV for all realizations
     objs[1] = np.mean((K-prey)/K) # Mean prey deficit
     objs[2] = np.mean(cons_low_harv) # Mean worst case of consecutive low harvest across realizations
-    objs[3] = -np.mean(harv_1st_pc) # 5th percentile of all harvests
-
+    objs[3] = -np.mean(harv_1st_pc) # Mean 1st percentile of all harvests
+    objs[4] = np.mean(variance) # Mean variance of harvest
+    
     cnstr[0] = np.mean((predator < 1).sum(axis=1)) # Mean number of predator extinction days per realization
     
     return objs,cnstr
