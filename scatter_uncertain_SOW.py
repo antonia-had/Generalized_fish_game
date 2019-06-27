@@ -120,4 +120,5 @@ ax3D.set_ylabel("\nPrey population deficit")
 ax3D.set_zlabel("\nWorst harvest instance")
 
 ax3D.view_init(10, -170)
-p.show()#savefig('Objectives_uncertain_SOW_scatter.png')
+p.savefig('Objectives_uncertain_SOW_scatter.png')
+p.savefig('Objectives_uncertain_SOW_scatter.svg')
