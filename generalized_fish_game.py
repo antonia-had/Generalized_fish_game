@@ -55,10 +55,10 @@ def fish_game(vars, # contains all C, R, W
     cnstr = [0.0]*nCnstr
     
     # Create array with environmental stochasticity for prey
-    epsilon_prey = np.random.normal(0.0, np.sqrt(sigmaX), N)
+    epsilon_prey = np.random.normal(0.0, sigmaX, N)
     
     # Create array with environmental stochasticity for predator
-    epsilon_predator = np.random.normal(0.0, np.sqrt(sigmaY), N)
+    epsilon_predator = np.random.normal(0.0, sigmaY, N)
 
     # Go through N possible realizations
     for i in range(N):
