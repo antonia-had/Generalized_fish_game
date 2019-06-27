@@ -87,7 +87,7 @@ objs[:,:,3] = -objs[:,:,3]
 
 fig = p.figure(figsize=(10,9))
 ax3D = Axes3D(fig)
-cmap = pyplot.cm.get_cmap("Paired")
+cmap = pyplot.cm.get_cmap("tab20")
 pts1 = ax3D.scatter(reference[:,0], reference[:,1], reference[:,3],
                     c=cmap(0.0),cmap=cmap, linewidth=0)
 pts2 = ax3D.scatter(objs[:,stable_sorted[0],0], objs[:,stable_sorted[0],1], objs[:,stable_sorted[0],3],
