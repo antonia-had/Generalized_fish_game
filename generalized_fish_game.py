@@ -9,7 +9,7 @@ N = 100 # Number of realizations of environmental stochasticity
 
 tSteps = 100 # no. of timesteps to run the fish game on
 
-nObjs = 4 # no. of objectives in output
+nObjs = 5 # no. of objectives in output
 nCnstr = 1 # no. of objectives in output
 
 # Define problem to be solved
@@ -55,10 +55,10 @@ def fish_game(vars, # contains all C, R, W
     cnstr = [0.0]*nCnstr
     
     # Create array with environmental stochasticity for prey
-    epsilon_prey = np.random.normal(0.0, sigmaX, N)
+    epsilon_prey = np.random.normal(0.0, np.sqrt(sigmaX), N)
     
     # Create array with environmental stochasticity for predator
-    epsilon_predator = np.random.normal(0.0, sigmaY, N)
+    epsilon_predator = np.random.normal(0.0, np.sqrt(sigmaY), N)
 
     # Go through N possible realizations
     for i in range(N):
