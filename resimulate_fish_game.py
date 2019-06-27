@@ -10,7 +10,7 @@ LHsamples = np.loadtxt('./parameter_samples.txt')
 Previous_Prey = np.loadtxt('./Generalized.resultfile')
 
 # Define the number of objectives and constraints
-nObjs = 4 
+nObjs = 5 
 nCnstr = 1 
 
 # Begin parallel simulation
