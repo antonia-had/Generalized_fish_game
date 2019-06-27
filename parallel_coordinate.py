@@ -15,13 +15,14 @@ objs_labels = ['Net present\nvalue (NPV)',
                'Prey population deficit', 
                'Longest duration\nof low harvest', 
                'Worst harvest instance',
+               'Variance of harvest',
                'Duration of predator\npopulation collapse'] # Constraint (always 0)
 
 # Normalization across objectives
 mins = reference.min(axis=0)
 maxs = reference.max(axis=0)
 norm_reference = reference.copy()
-for i in range(4):
+for i in range(5):
     mm = reference[:,i].min()
     mx = reference[:,i].max()
     if mm!=mx:
@@ -44,17 +45,17 @@ cbar = fig.colorbar(sm)
 cbar.ax.set_ylabel("\nNet present value (NPV)")
 
 # Tick values
-minvalues = ["{0:.3f}".format(mins[0]), "{0:.3f}".format(-mins[1]),str(-mins[2]), str(mins[3]), str(0)]
-maxvalues = ["{0:.2f}".format(maxs[0]), "{0:.3f}".format(-maxs[1]),str(-maxs[2]), "{0:.2f}".format(maxs[3]), str(0) ]
+minvalues = ["{0:.3f}".format(mins[0]), "{0:.3f}".format(-mins[1]),str(-mins[2]), str(mins[3]), str(mins[4]), str(0)]
+maxvalues = ["{0:.2f}".format(maxs[0]), "{0:.3f}".format(-maxs[1]),str(-maxs[2]), "{0:.2f}".format(maxs[3]), "{0:.2f}".format(maxs[4]),str(0) ]
 
 ax.set_ylabel("Preference ->", size= 12)
 ax.set_yticks([])
-ax.set_xticks([0,1,2,3,4])
+ax.set_xticks([0,1,2,3,4,5])
 ax.set_xticklabels([minvalues[i]+'\n'+objs_labels[i] for i in range(len(objs_labels))])
 #make a twin axis for toplabels
 ax1 = ax.twiny()
 ax1.set_yticks([])
-ax1.set_xticks([0,1,2,3,4])
+ax1.set_xticks([0,1,2,3,4,5])
 ax1.set_xticklabels([maxvalues[i] for i in range(len(maxs))])
 plt.savefig('Objectives_parallel_axis.svg')
 plt.savefig('Objectives_parallel_axis.png')
