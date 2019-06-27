@@ -3,7 +3,7 @@ from math import *
 import os
 from generalized_fish_game import fish_game
 
-SOW = 2832 # SOW to reoptimize to
+SOW = 2343 # SOW to reoptimize to
 LHsamples = np.loadtxt('./parameter_samples.txt')
 SOW_inputs = LHsamples[SOW,0:9]  
 
