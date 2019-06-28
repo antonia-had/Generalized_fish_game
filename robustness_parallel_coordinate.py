@@ -25,14 +25,16 @@ for i in range(len(robustness[:,0])):
     xs = range(len(ys))
     ax.plot(xs[0:6], ys[0:6], c=cmap(normalized_color[i]), linewidth=2) 
     
-# Highlight specific solutions
+'''    
+Highlight specific solutions
+'''
 ys = robustness[np.argmax(robustness[:,0]),:] # Most robust in NPV
 xs = range(len(ys))
 l1=ax.plot(xs[0:6], ys[0:6], c=cmap(normalized_color[np.argmax(robustness[:,0])]), linewidth=3, label='Most robust in NPV', path_effects=[pe.Stroke(linewidth=6, foreground='darkgoldenrod'), pe.Normal()])
 
 ys = robustness[np.argmax(robustness[:,-1]),:] # Most robust in all criteria
 xs = range(len(ys))
-l2=ax.plot(xs[0:6], ys[0:6], c=cmap(normalized_color[np.argmax(robustness[:,5])]), linewidth=3, label='Most robust across criteria', path_effects=[pe.Stroke(linewidth=6, foreground='gold'), pe.Normal()])
+l2=ax.plot(xs[0:6], ys[0:6], c=cmap(normalized_color[np.argmax(robustness[:,-1])]), linewidth=3, label='Most robust across criteria', path_effects=[pe.Stroke(linewidth=6, foreground='gold'), pe.Normal()])
 
 sm = matplotlib.cm.ScalarMappable(cmap=cmap)
 sm.set_array([robustness[:,-1].min(),robustness[:,-1].max()])
