@@ -138,3 +138,4 @@ ax3D.set_zlabel("\nWorst harvest instance")
 ax3D.view_init(10, -170)
     
 p.savefig('Objectives_uncertain_SOW_scatter_regret.png')
+p.savefig('Objectives_uncertain_SOW_scatter_regret.svg')
