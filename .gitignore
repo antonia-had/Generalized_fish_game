@@ -1,2 +1,9 @@
 /Generalized/
 /Reoptimized
+MOEAFramework-2.12-Demo.jar
+borg.*
+libborg.so
+libborgms.so
+Borg.dll
+borgms.c
+borgms.h
