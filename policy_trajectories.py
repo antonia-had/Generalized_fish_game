@@ -3,8 +3,6 @@ import itertools
 import matplotlib.pyplot as plt
 from cycler import cycler
 plt.style.use('ggplot')
-plt.switch_backend('agg')
-plt.ioff()
 
 nRBF = 2 # no. of RBFs to use
 nIn = 1 # no. of inputs (depending on selected strategy)
@@ -30,7 +28,7 @@ robustness = np.loadtxt('./Robustness.txt',delimiter=' ')
 LHsamples = np.loadtxt('./parameter_samples.txt')
 # Pick solutions of interest 
 NPV_robust = np.argmax(robustness[:,0])
-all_robust = np.argmax(robustness[:,5])
+all_robust = np.argmax(robustness[:,-1])
 
 # Define problem to be solved
 def fish_game(vars, # contains all C, R, W
@@ -87,8 +85,9 @@ def fish_game(vars, # contains all C, R, W
     else:
         cons_low_harv = 0
     harv_1st_pc = np.percentile(harvest,1)
+    variance = np.var(harvest)
                     
-    return [x, y, z, NPVharvest], [NPVharvest[100], np.mean((K-x)/K), cons_low_harv, harv_1st_pc, (y < 1).sum()]
+    return [x, y, z, NPVharvest], [NPVharvest[100], np.mean((K-x)/K), cons_low_harv, harv_1st_pc, variance, (y < 1).sum()]
 
 # Calculate outputs (u) corresponding to each sample of inputs
 # u is a 2-D matrix with nOut columns (1 for each output)
@@ -141,18 +140,18 @@ cmap = plt.cm.get_cmap("plasma")
 highprofitpolicy = results[NPV_robust,0:6]
 mostrobustpolicy = results[all_robust,0:6]
 ntraj = 5 # Number of trajectories to plot
-worlds = [defaultSOW, LHsamples[1540,0:9].tolist(), LHsamples[2716,0:9].tolist()]
+worlds = [defaultSOW, LHsamples[1540,0:9].tolist(), LHsamples[85,0:9].tolist()]
 
 # Different SOW have different possible trajectories
 x = np.zeros([len(worlds), ntraj])
 y = np.zeros([len(worlds), ntraj])
 # When unharvested, different SOWs have different "natural populations" which need to be determined
-eq_x = [1900, 1100, 1500]
-eq_y = [250, 1300, 120]
+eq_x = [1900, 1165, 720]
+eq_y = [240, 1300, 500]
 for i in range(len(worlds)):
-    x[i] = np.linspace(eq_x[i]*0.9, eq_x[i]*1.1, ntraj)
-    y[i] = np.linspace(eq_y[i]*0.9, eq_y[i]*1.1, ntraj)
-nCrit = 4 + 1 # 4 Objectives + 1 Constraint
+    x[i] = np.linspace(eq_x[i]*0.95, eq_x[i]*1.05, ntraj)
+    y[i] = np.linspace(eq_y[i]*0.95, eq_y[i]*1.05, ntraj)
+nCrit = 5 + 1 # 5 Objectives + 1 Constraint
 
 noharv = np.zeros([len(worlds), ntraj, 4, tSteps+1])
 highprofitharv = np.zeros([len(worlds), ntraj, 4, tSteps+1]) # SOW, initial conditions, fish pop., timesteps
@@ -170,8 +169,8 @@ for j in range(len(highprofitharv[:,:,:])): # Loop through SOW
         robustharv[j,i][0:2] = robustharv[j,i][0:2].clip(0,5000)
         noharv[j,i,:], noharvOBJ[j,i] = fish_game([0.0]*6,additional_inputs)
 
-nb_points   = 50
-y_iso = [np.linspace(0, 300, nb_points), np.linspace(0, 1500, nb_points), np.linspace(0, 200, nb_points)]
+nb_points   = 100
+y_iso = [np.linspace(0, 300, nb_points), np.linspace(0, 1500, nb_points), np.linspace(0, 600, nb_points)]
 
 def isoclines(y, SOW):
     a = float(SOW[0])
@@ -184,15 +183,15 @@ def isoclines(y, SOW):
     return ([(y**m*d)/(a*(c-h*d)),
              K*b/(2*b)-y**m/(2*a*h)+K*np.sqrt((a*h*b+y**m*b/K)**2-4*a**2*h*b*y/K)/(2*a*h*b)])
     
-iso1= np.zeros([len(worlds), nb_points])
-iso2= np.zeros([len(worlds), nb_points])
+iso1= np.zeros([len(worlds), nb_points]) # y isocline
+iso2= np.zeros([len(worlds), nb_points]) # x isocline
 
 for j in range(len(worlds)):
     iso1[j], iso2[j] = isoclines(y_iso[j], worlds[j])
 
 ncols = 3
 
-fig = plt.figure()
+fig =  plt.figure(figsize=(18,9))
 for l in range(ncols):
     ax = fig.add_subplot(1,ncols,l+1)
     ax.plot(iso1[l],y_iso[l], c='gray')
@@ -210,7 +209,8 @@ for l in range(ncols):
         endpoint1 = ax.scatter(highprofitharv[l,n,0][100], highprofitharv[l,n,1][100], c='darkgoldenrod', s=20)
         endpoint2 = ax.scatter(robustharv[l,n,0][100], robustharv[l,n,1][100], c='gold', s=20)
 #            endpoint3 = ax.scatter(noharv[ncols*k+l,n,0][100], noharv[ncols*k+l,n,1][100], c='black', s=20)
-        pop_thres = ax.axvline(x=worlds[l][5]*0.2, linestyle=':', c='crimson')
+        collapse_thres = ax.axvline(x=worlds[l][5]*0.5*0.2, linestyle=':', c='crimson')
+        overfishing_thres = ax.axvline(x=worlds[l][5]*0.5*0.5, linestyle=':', c='purple')
     ax.set_xlabel("Prey")
 #        ax.set_ylim(0,305)
 #        ax.set_xlim(0,2500)
@@ -225,4 +225,5 @@ cbar_ax = fig.add_axes([0.1, 0.06, 0.8, 0.06])
 cb = fig.colorbar(sm, cax=cbar_ax, orientation="horizontal")
 cb.ax.set_xlabel("Ratio of prey harvested")
 plt.show()
+plt.savefig("policy_trajectories.png")
 

@@ -43,17 +43,17 @@ def calcSatisfaction(objs,cnstr):
         for j in range(np.shape(SatisfyMatrix)[1]):
             if objs[i,j,0] <= -1500:
                 SatisfyMatrix[i,j,0] = 1
-            if objs[i,j,1] <= 0.2:
+            if objs[i,j,1] <= 0.5:
                 SatisfyMatrix[i,j,1] = 1
             if objs[i,j,2] <= 5:
                 SatisfyMatrix[i,j,2] = 1
             if objs[i,j,3] <= -50:
                 SatisfyMatrix[i,j,3] = 1
-            if objs[i,j,4] <= 30000:
+            if objs[i,j,4] <= 2300:
                 SatisfyMatrix[i,j,4] = 1
             if cnstr[i,j] <= 0:
                 SatisfyMatrix[i,j,5] = 1                 
-            if objs[i,j,0] <= -1500 and objs[i,j,1] <= 0.2 and objs[i,j,2] <= 5 and objs[i,j,3] <= -50 and objs[i,j,4] <= 30000 and cnstr[i,j] <= 0:
+            if objs[i,j,0] <= -1500 and objs[i,j,1] <= 0.5 and objs[i,j,2] <= 5 and objs[i,j,3] <= -50 and objs[i,j,4] <= 2300 and cnstr[i,j] <= 0:
                 SatisfyMatrix[i,j,6] = 1
                 
     satisfaction = np.zeros([np.shape(SatisfyMatrix)[0],np.shape(SatisfyMatrix)[2]])

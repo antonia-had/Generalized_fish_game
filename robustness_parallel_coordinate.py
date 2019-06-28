@@ -10,10 +10,10 @@ ax = fig.add_subplot(1, 1 , 1)
 robustness = np.loadtxt('./Robustness.txt',delimiter=' ')*100
 
 objs_labels = ['Net present\nvalue (NPV) > 1500', 
-               'Prey population\ndeficit < 0.2', 
+               'Prey population\ndeficit < 0.5', 
                'Longest duration\nof low harvest < 5', 
                'Worst harvest\ninstance > 50',
-               'Variance of harvest < 30000',
+               'Variance of harvest < 2300',
                'Duration of predator\npopulation collapse < 1']
 
 
