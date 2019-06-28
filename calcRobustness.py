@@ -2,7 +2,7 @@ import os
 import numpy as np
 
 nSamples=4000
-nObjs=4
+nObjs=5
 nCnstr = 1
 LHsamples = np.loadtxt('./parameter_samples.txt')
 no_harvest_collapse = np.loadtxt('./Zero_harvest_cnstr.txt')
@@ -49,10 +49,12 @@ def calcSatisfaction(objs,cnstr):
                 SatisfyMatrix[i,j,2] = 1
             if objs[i,j,3] <= -50:
                 SatisfyMatrix[i,j,3] = 1
+            if objs[i,j,4] <= 20000:
+                SatisfyMatrix[i,j,3] = 1
             if cnstr[i,j] <= 0:
-                SatisfyMatrix[i,j,4] = 1                 
-            if objs[i,j,0] <= -1500 and objs[i,j,1] <= 0.2 and objs[i,j,2] <= 5 and objs[i,j,3] <= -50 and cnstr[i,j] <= 0:
-                SatisfyMatrix[i,j,5] = 1
+                SatisfyMatrix[i,j,5] = 1                 
+            if objs[i,j,0] <= -1500 and objs[i,j,1] <= 0.2 and objs[i,j,2] <= 5 and objs[i,j,3] <= -50 and objs[i,j,4] <= 20000 and cnstr[i,j] <= 0:
+                SatisfyMatrix[i,j,6] = 1
                 
     satisfaction = np.zeros([np.shape(SatisfyMatrix)[0],np.shape(SatisfyMatrix)[2]])
     for i in range(np.shape(SatisfyMatrix)[0]):
