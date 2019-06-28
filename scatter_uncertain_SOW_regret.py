@@ -10,7 +10,7 @@ pyplot.ioff()
 # Read in Latin hypercube samples of uncertain inputs
 LHsamples = np.loadtxt('./parameter_samples.txt')
 nSamples=len(LHsamples[:,0])
-nObjs=4
+nObjs=5
 nCnstr = 1
 numPts = (len(os.listdir('./Generalized/resim_objs'))) # Get number of solutions on pareto front
 
