@@ -226,4 +226,6 @@ cb = fig.colorbar(sm, cax=cbar_ax, orientation="horizontal")
 cb.ax.set_xlabel("Ratio of prey harvested")
 plt.show()
 plt.savefig("policy_trajectories.png")
+plt.savefig("policy_trajectories.svg")
+
 
