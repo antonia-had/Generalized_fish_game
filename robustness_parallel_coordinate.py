@@ -46,6 +46,7 @@ ax.set_xticks([0,1,2,3,4,5])
 ax.set_xticklabels(objs_labels)
 ax.legend()
 plt.savefig('robustness_parallel_coordinate.png')
+plt.savefig('robustness_parallel_coordinate.svg')
 
 
 
