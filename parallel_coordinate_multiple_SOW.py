@@ -221,3 +221,5 @@ ax3t.set_xticks([0,1,2,3,4])
 ax3.set_xticklabels([minvalues[i]+'\n'+objs_labels[i] for i in range(len(objs_labels))])
 ax3t.set_xticklabels(maxvalues)
 plt.savefig('Objectives_parallel_axis_multiple_SOW.png')
+plt.savefig('Objectives_parallel_axis_multiple_SOW.svg')
+
