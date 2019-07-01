@@ -1,4 +1,4 @@
-import numpy as np
+ccimport numpy as np
 import itertools
 
 nRBF = 2 # no. of RBFs to use
