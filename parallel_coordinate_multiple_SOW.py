@@ -89,15 +89,15 @@ for i in range(nObjs):
     norm_objs[2,:,i] = (objs[2,:,i] - np.min(mins3[:,i])) / (np.max(maxs3[:,i]) - np.min(mins3[:,i]))
 
 if np.max(cnstr[0])==np.min(cnstr[0]):
-    norm_cnstr1 = np.zeros(len(cnstr[0,:]))
+    norm_cnstr1 = np.ones(len(cnstr[0,:]))
 else:
     norm_cnstr1 = (cnstr[0]-np.min(cnstr[0]))/(np.max(cnstr[0])-np.min(cnstr[0]))
 if np.max(cnstr[1])==np.min(cnstr[1]):   
-    norm_cnstr2 = np.zeros(len(cnstr[0,:]))
+    norm_cnstr2 = np.ones(len(cnstr[0,:]))
 else:
     norm_cnstr2 = (cnstr[1]-np.min(cnstr[1]))/(np.max(cnstr[1])-np.min(cnstr[1]))
 if np.max(cnstr[2])==np.min(cnstr[2]):
-    norm_cnstr3 = np.zeros(len(cnstr[0,:]))
+    norm_cnstr3 = np.ones(len(cnstr[0,:]))
 else:
     norm_cnstr3 = (cnstr[2]-np.min(cnstr[2]))/(np.max(cnstr[2])-np.min(cnstr[2]))
 
@@ -159,9 +159,9 @@ plt.subplots_adjust(hspace = 0.3)
 ax1.set_yticks([])
 ax2.set_yticks([])
 ax3.set_yticks([])
-ax1.set_xticks([0,1,2,3,4])
-ax2.set_xticks([0,1,2,3,4])
-ax3.set_xticks([0,1,2,3,4])
+ax1.set_xticks([0,1,2,3,4,5])
+ax2.set_xticks([0,1,2,3,4,5])
+ax3.set_xticks([0,1,2,3,4,5])
 
 # Tick values
 minvalues = ["{0:.2f}".format(np.min(mins1, axis=0)[0]), 
@@ -179,7 +179,7 @@ maxvalues = ["{0:.2f}".format(np.max(maxs1, axis=0)[0]),
 #make a twin axis for toplabels
 ax1t = ax1.twiny()
 ax1t.set_yticks([])
-ax1t.set_xticks([0,1,2,3,4])
+ax1t.set_xticks([0,1,2,3,4,5])
 ax1.set_xticklabels(minvalues)
 ax1t.set_xticklabels(maxvalues)
 
@@ -198,7 +198,7 @@ maxvalues = ["{0:.2f}".format(np.max(maxs2, axis=0)[0]),
 #make a twin axis for toplabels
 ax2t = ax2.twiny()
 ax2t.set_yticks([])
-ax2t.set_xticks([0,1,2,3,4])
+ax2t.set_xticks([0,1,2,3,4,5])
 ax2.set_xticklabels(minvalues)
 ax2t.set_xticklabels(maxvalues)
 
@@ -217,7 +217,7 @@ maxvalues = ["{0:.2f}".format(np.max(maxs3, axis=0)[0]),
 #make a twin axis for toplabels
 ax3t = ax3.twiny()
 ax3t.set_yticks([])
-ax3t.set_xticks([0,1,2,3,4])
+ax3t.set_xticks([0,1,2,3,4,5])
 ax3.set_xticklabels([minvalues[i]+'\n'+objs_labels[i] for i in range(len(objs_labels))])
 ax3t.set_xticklabels(maxvalues)
 plt.savefig('Objectives_parallel_axis_multiple_SOW.png')
