@@ -13,6 +13,10 @@ ax = fig.add_subplot(1, 1, 1)    # make axes to plot on
 reference = np.loadtxt('./Generalized.reference',delimiter=' ') # Read in all solutions
 reference = -reference
 
+# Create a mask with brushing conditions
+mask = [True if reference[i,1]>=-0.2 else False for i in range(len(reference[:,1]))]
+reference = reference[mask,:] 
+
 objs_labels = ['Net present\nvalue (NPV)', 
                'Prey population deficit', 
                'Longest duration\nof low harvest', 
@@ -39,18 +43,6 @@ for i in range(len(norm_reference[:,0])):
     ys = np.append(norm_reference[i,:], 1.0)
     xs = range(len(ys))
     ax.plot(xs, ys, c=cmap(ys[0]), linewidth=2)
-    
-'''
-To highlight robust solutions
-'''
-#robustness = np.loadtxt('./Robustness.txt',delimiter=' ')*100
-#robustness = robustness[robustness[:,-1].argsort()]
-#ys = np.append(norm_reference[np.argmax(robustness[:,0]),:], 1.0)# Most robust in NPV
-#xs = range(len(ys))
-#l1=ax.plot(xs[0:6], ys[0:6], c=cmap(ys[0]), linewidth=3, label='Most robust in NPV', path_effects=[pe.Stroke(linewidth=6, foreground='darkgoldenrod'), pe.Normal()])
-#ys = np.append(norm_reference[np.argmax(robustness[:,-1]),:], 1.0) # Most robust in all criteria
-#xs = range(len(ys))
-#l2=ax.plot(xs[0:6], ys[0:6], c=cmap(ys[0]), linewidth=3, label='Most robust across criteria', path_effects=[pe.Stroke(linewidth=6, foreground='gold'), pe.Normal()])
 
 #Colorbar
 sm = matplotlib.cm.ScalarMappable(cmap=cmap)
@@ -73,5 +65,5 @@ ax1 = ax.twiny()
 ax1.set_yticks([])
 ax1.set_xticks([0,1,2,3,4,5])
 ax1.set_xticklabels([maxvalues[i] for i in range(len(maxs))])
-plt.savefig('Objectives_parallel_axis.svg')
-plt.savefig('Objectives_parallel_axis.png')
+plt.savefig('Objectives_parallel_axis_brushed.svg')
+plt.savefig('Objectives_parallel_axis_brushed.png')
