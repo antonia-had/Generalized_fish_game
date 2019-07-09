@@ -140,14 +140,14 @@ cmap = plt.cm.get_cmap("plasma")
 highprofitpolicy = results[NPV_robust,0:6]
 mostrobustpolicy = results[all_robust,0:6]
 ntraj = 5 # Number of trajectories to plot
-worlds = [defaultSOW, LHsamples[1540,0:9].tolist(), LHsamples[85,0:9].tolist()]
+worlds = [defaultSOW, LHsamples[1540,0:9].tolist(), LHsamples[3941,0:9].tolist()]
 
 # Different SOW have different possible trajectories
 x = np.zeros([len(worlds), ntraj])
 y = np.zeros([len(worlds), ntraj])
 # When unharvested, different SOWs have different "natural populations" which need to be determined
-eq_x = [1900, 1165, 720]
-eq_y = [240, 1300, 500]
+eq_x = [1900, 1165, 1200]
+eq_y = [240, 1300, 1100]
 for i in range(len(worlds)):
     x[i] = np.linspace(eq_x[i]*0.95, eq_x[i]*1.05, ntraj)
     y[i] = np.linspace(eq_y[i]*0.95, eq_y[i]*1.05, ntraj)
@@ -170,7 +170,7 @@ for j in range(len(highprofitharv[:,:,:])): # Loop through SOW
         noharv[j,i,:], noharvOBJ[j,i] = fish_game([0.0]*6,additional_inputs)
 
 nb_points   = 100
-y_iso = [np.linspace(0, 300, nb_points), np.linspace(0, 1500, nb_points), np.linspace(0, 600, nb_points)]
+y_iso = [np.linspace(0, 300, nb_points), np.linspace(0, 1500, nb_points), np.linspace(0, 1500, nb_points)]
 
 def isoclines(y, SOW):
     a = float(SOW[0])
